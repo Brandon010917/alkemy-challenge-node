@@ -7,6 +7,7 @@ const { User } = require('../models/user.model');
 // Utils
 const { AppError } = require('../utils/appError');
 const { catchAsync } = require('../utils/catchAsync');
+const { Email } = require('../utils/email');
 
 const register = catchAsync(async (req, res, next) => {
   const { name, email, password, role } = req.body;
@@ -21,7 +22,9 @@ const register = catchAsync(async (req, res, next) => {
     role,
   });
 
-  // Remove password from response
+  // Send mail to newly created account
+  await new Email(email).sendWelcome(name);
+
   newUser.password = undefined;
 
   res.status(201).json({

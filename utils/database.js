@@ -13,7 +13,7 @@ const db = new Sequelize({
   database: process.env.DB,
   logging: false,
   dialectOptions:
-    process.env.NODE_ENV === 'productiom'
+    process.env.NODE_ENV === 'production'
       ? {
           ssl: {
             require: true,
