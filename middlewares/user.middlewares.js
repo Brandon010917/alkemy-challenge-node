@@ -8,6 +8,7 @@ const { catchAsync } = require('../utils/catchAsync');
 const userExists = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
+  // Search User with the given id and status active
   const user = await User.findOne({
     where: { id, status: 'active' },
     attributes: { exclude: ['password'] },

@@ -1,3 +1,4 @@
+// Firebase/storage
 const { ref, uploadBytes, getDownloadURL } = require('firebase/storage');
 
 // Models
@@ -61,7 +62,7 @@ const getAllCharacters = catchAsync(async (req, res, next) => {
   });
 });
 
-const getCharacterById = catchAsync(async (req, res, next) => {
+const getCharacterById = catchAsync(async (req, res) => {
   const { character } = req;
 
   const imgRef = ref(storage, character.image);
@@ -77,7 +78,7 @@ const getCharacterById = catchAsync(async (req, res, next) => {
   });
 });
 
-const updateCharacter = catchAsync(async (req, res, next) => {
+const updateCharacter = catchAsync(async (req, res) => {
   const data = filterObj(req.body, 'name', 'age', 'weight', 'history');
   const { character } = req;
 
@@ -90,7 +91,7 @@ const updateCharacter = catchAsync(async (req, res, next) => {
   });
 });
 
-const deleteCharacter = catchAsync(async (req, res, next) => {
+const deleteCharacter = catchAsync(async (req, res) => {
   const { character } = req;
 
   await character.update({
@@ -102,19 +103,10 @@ const deleteCharacter = catchAsync(async (req, res, next) => {
   });
 });
 
-const getCharacterByQuery = catchAsync(async (req, res, next) => {
-  console.log('Hola');
-
-  res.status(200).json({
-    status: 'success',
-  });
-});
-
 module.exports = {
   createCharacter,
   getAllCharacters,
   getCharacterById,
   updateCharacter,
   deleteCharacter,
-  getCharacterByQuery,
 };

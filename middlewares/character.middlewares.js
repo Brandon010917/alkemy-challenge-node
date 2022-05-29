@@ -9,6 +9,7 @@ const { catchAsync } = require('../utils/catchAsync');
 const characterExits = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
+  // Search Character with the given id and status active
   const character = await Character.findOne({
     where: { id, status: 'active' },
     attributes: {

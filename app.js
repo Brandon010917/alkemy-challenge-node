@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const rateLimit = require('express-rate-limit');
+const helmet = require('helmet');
+const compression = require('compression');
 
 // Controllers
 const { globalErrorHandler } = require('./controllers/error.controller');
@@ -26,6 +28,15 @@ app.use(express.json());
 
 // Ename incoming form-data
 app.use(express.urlencoded({ extended: true }));
+
+// Set Pug as template engine
+app.set('view engine', 'pug');
+
+// Set more security headers
+app.use(helmet());
+
+// Compress response on the browser
+app.use(compression());
 
 // Limit IP requests
 const limiter = rateLimit({

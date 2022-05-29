@@ -1,10 +1,8 @@
 const express = require('express');
 
-// Controller
-// Users
+// Controllers
 const {
   getAllUsers,
-  createUser,
   getUserById,
   updateUser,
   deleteUser,

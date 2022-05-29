@@ -9,7 +9,7 @@ const { AppError } = require('../utils/appError');
 const { catchAsync } = require('../utils/catchAsync');
 const { Email } = require('../utils/email');
 
-const register = catchAsync(async (req, res, next) => {
+const register = catchAsync(async (req, res) => {
   const { name, email, password, role } = req.body;
 
   const salt = await bcrypt.genSalt(12);
@@ -25,6 +25,7 @@ const register = catchAsync(async (req, res, next) => {
   // Send mail to newly created account
   await new Email(email).sendWelcome(name);
 
+  // Set the password to undefined
   newUser.password = undefined;
 
   res.status(201).json({
@@ -51,12 +52,14 @@ const login = catchAsync(async (req, res, next) => {
     expiresIn: process.env.JWT_EXPIRES_IN,
   });
 
+  // Set the password to undefined
   user.password = undefined;
 
   res.status(200).json({ token, user });
 });
 
-const checkToken = catchAsync(async (req, res, next) => {
+const checkToken = catchAsync(async (req, res) => {
+  // Return to sessionUser
   res.status(200).json({ user: req.sessionUser });
 });
 

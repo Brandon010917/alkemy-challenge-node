@@ -1,15 +1,16 @@
 // Models
+const { Movie } = require('../models/movie.model');
 const { Character } = require('../models/character.model');
 const { Genre } = require('../models/genre.model');
-const { Movie } = require('../models/movie.model');
 
 // Utils
-const { AppError } = require('../utils/appError');
 const { catchAsync } = require('../utils/catchAsync');
+const { AppError } = require('../utils/appError');
 
 const movieExists = catchAsync(async (req, res, next) => {
   const { id } = req.params;
 
+  // Search Movie with the given id and status active
   const movie = await Movie.findOne({
     where: { id, status: 'active' },
     attributes: {

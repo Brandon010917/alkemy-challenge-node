@@ -1,11 +1,9 @@
 const { ref, uploadBytes, getDownloadURL } = require('firebase/storage');
-const { Character } = require('../models/character.model');
 
 // Models
-const { CharacterInMovie } = require('../models/characterInMovie.model');
-const { Genre } = require('../models/genre.model');
-const { GenreInMovie } = require('../models/genreInMovie.model');
 const { Movie } = require('../models/movie.model');
+const { CharacterInMovie } = require('../models/characterInMovie.model');
+const { GenreInMovie } = require('../models/genreInMovie.model');
 
 // Utils
 const { catchAsync } = require('../utils/catchAsync');
@@ -50,7 +48,7 @@ const createMovie = catchAsync(async (req, res, next) => {
   });
 });
 
-const getAllMovies = catchAsync(async (req, res, next) => {
+const getAllMovies = catchAsync(async (req, res) => {
   const movies = await Movie.findAll({
     where: {
       status: 'active',

@@ -25,6 +25,7 @@ const { upload } = require('../utils/multer');
 
 const router = express.Router();
 
+// Apply protectToken middleware
 router.use(protectToken);
 
 router.post(

@@ -3,6 +3,7 @@ const { body, validationResult } = require('express-validator');
 // Utils
 const { AppError } = require('../utils/appError');
 
+// Start User Validations
 const createUserValidations = [
   body('name')
     .notEmpty()
@@ -20,7 +21,9 @@ const createUserValidations = [
     .isLength({ min: 8 })
     .withMessage('Password must be at least 8 characters long'),
 ];
+// End User Validations
 
+// Start Character Validations
 const createCharacterValidations = [
   body('name')
     .notEmpty()
@@ -46,7 +49,9 @@ const createCharacterValidations = [
     .custom((value, { req }) => req.file)
     .withMessage('Must provide a valid image'),
 ];
+// End Character Validations
 
+// Start Movie Validations
 const createMovieValidations = [
   body('title')
     .notEmpty()
@@ -77,7 +82,9 @@ const createMovieValidations = [
     .custom((value, { req }) => req.file)
     .withMessage('Must provide a valid image'),
 ];
+// End User Validations
 
+// Start Genre Validations
 const createGenreValidations = [
   body('name')
     .notEmpty()
@@ -88,6 +95,7 @@ const createGenreValidations = [
     .custom((value, { req }) => req.file)
     .withMessage('Must provide a valid image'),
 ];
+// End Genre Validations
 
 const checkValidations = (req, res, next) => {
   const errors = validationResult(req);
